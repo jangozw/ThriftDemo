@@ -14,8 +14,8 @@ use Thrift\Factory\TTransportFactory;
 use Thrift\Server\TServerSocket;
 use Thrift\Server\TSimpleServer;
 use Thrift\TMultiplexedProcessor;
-require_once APP_PATH.'/Lib/ThriftCommonCallService.php';
-require_once APP_PATH.'/Lib/Types.php';
+require_once APP_PATH . '/Lib/ThriftCommonCallService.php';
+require_once APP_PATH . '/Lib/Types.php';
 
 
 class Run

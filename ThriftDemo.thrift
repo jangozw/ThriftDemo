@@ -1,7 +1,7 @@
 # 实现功能： 客户端调用服务端通用thrift请求
 
 # 指定生成什么语言，生成文件存放的目录
-namespace php ThriftDemo
+namespace go ThriftDemo
 
 // 返回结构体
 struct Response {

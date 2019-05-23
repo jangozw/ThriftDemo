@@ -13,8 +13,8 @@ use Thrift\Transport\TBufferedTransport;
 use Thrift\Transport\TSocket;
 use App\Lib\ThriftCommonCallServiceClient;
 
-require_once APP_PATH.'/Lib/ThriftCommonCallService.php';
-require_once APP_PATH.'/Lib/Types.php';
+require_once APP_PATH . '/Lib/ThriftCommonCallService.php';
+require_once APP_PATH . '/Lib/Types.php';
 
 /**
  * Class CallServer
