@@ -1,0 +1,11 @@
+/.idea
+/server_project/.idea
+/client_project/.idea
+/client_project/php/composer.lock
+/server_project/php/composer.lock
+
+/client_project/php/vendor/*
+/server_project/php/vendor/*
+/server_project/php/log/*
+/client_project/php/log/*
+
