@@ -25,8 +25,12 @@ func main() {
 	handler := &service.RpcService{}
 	processor := stub.NewThriftCommonCallServiceProcessor(handler)
 
+
 	transportFactory := thrift.NewTBufferedTransportFactory(8192)
-	protocolFactory := thrift.NewTCompactProtocolFactory()
+	protocolFactory := thrift.NewTBinaryProtocolFactory(true, true)
+
+
+
 	server := thrift.NewTSimpleServer4(
 		processor,
 		transport,

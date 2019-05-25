@@ -48,7 +48,7 @@ func request(paramsJson string) (r *stub.Response) {
 
 	ctx := context.Background()
 	transportFactory := thrift.NewTBufferedTransportFactory(8192)
-	protocolFactory := thrift.NewTCompactProtocolFactory()
+	protocolFactory := thrift.NewTBinaryProtocolFactory(true, true)
 
 	transport, err := thrift.NewTSocket(net.JoinHostPort(host, port))
 	if err != nil {

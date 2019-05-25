@@ -72,17 +72,15 @@ class CallServer
             $socket->setDebug(true);
             $transport = new TBufferedTransport($socket, 1024, 1024);
             $protocol = new TBinaryProtocol($transport);
-            $thriftProtocol = new TMultiplexedProtocol($protocol, 'thriftCommonCallService');
-            $client = new ThriftCommonCallServiceClient($thriftProtocol);
+            $client = new ThriftCommonCallServiceClient($protocol);
             $transport->open();
             // 拼装参数与类型
             $data = [
-                'params' => $args[0],
-                'methodName' => $args[1],
-                'serviceName' => $args[2]
+                'Params' => $args[0],
+                'MethodName' => $args[1],
+                'ServiceName' => $args[2]
             ];
             $result = $client->invokeMethod(json_encode($data));
-            //$result->data = json_decode($result->data, true);
             $transport->close();
             Log::info("调用服务-请求", $data);
             Log::info("调用服务-结果", $result);

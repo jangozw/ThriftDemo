@@ -19,9 +19,9 @@ class Server implements ThriftCommonCallServiceIf
         try {
             // 转换字符串 json
             $params = json_decode($params, true);
-            $methodName = $params['methodName'];
-            $serviceName = $params['serviceName'];
-            $data = $params['params'];
+            $methodName = $params['MethodName'];
+            $serviceName = $params['ServiceName'];
+            $data = $params['Params'];
             // 自己可以实现转发的业务逻辑
             //...
             $result = $this->routeService($serviceName, $methodName, $data);
