@@ -4,9 +4,9 @@
 /client_project/.idea
 /client_project/php/composer.lock
 /server_project/php/composer.lock
-
+/php/vendor/*
 /client_project/php/vendor/*
 /server_project/php/vendor/*
 /server_project/php/log/*
-/client_project/php/log/*
+/php/log/*
 

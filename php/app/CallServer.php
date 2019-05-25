@@ -39,10 +39,10 @@ class CallServer
     private function __construct()
     {
         $config = Util::config('service', 'service');
-         $this->config = [
-             'host' => $config['host'],
-             'port' => $config['port'],
-         ];
+        $this->config = [
+            'host' => $config['host'],
+            'port' => $config['port'],
+        ];
 
     }
 
