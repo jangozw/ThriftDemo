@@ -1,58 +1,55 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: jangozw
+ * Date: 2019/5/22
+ * Time: 下午3:47
+ */
 
 namespace App;
 
-use App\Lib\Response;
-use App\Lib\ThriftCommonCallServiceIf;
+use App\Lib\ThriftCommonCallServiceProcessor;
+use Thrift\Factory\TBinaryProtocolFactory;
+use Thrift\Factory\TTransportFactory;
+use Thrift\Server\TServerSocket;
+use Thrift\Server\TSimpleServer;
+use Thrift\TMultiplexedProcessor;
+use Thrift\Transport\TBufferedTransport;
 
-class Server implements ThriftCommonCallServiceIf
+require_once APP_PATH . '/Lib/ThriftCommonCallService.php';
+require_once APP_PATH . '/Lib/Types.php';
+
+
+class Server
 {
-    public function invokeMethod($params)
-    {
-        $result = $this->parseRequest($params);
-        Log::info("服务调用", ['request' => $params, 'result' => $result]);
-        return $result;
-    }
-
-    private function parseRequest($params)
+    public static function run()
     {
         try {
-            // 转换字符串 json
-            $params = json_decode($params, true);
-            $methodName = $params['MethodName'];
-            $serviceName = $params['ServiceName'];
-            $data = $params['Params'];
-            // 自己可以实现转发的业务逻辑
-            //...
-            $result = $this->routeService($serviceName, $methodName, $data);
-            return $this->success($result);
+
+            $config = \App\Util::config('service', 'service');
+            // 监听开始
+            $transport = new TServerSocket($config['host'], $config['port']);
+
+
+            $thriftProcessor = new ThriftCommonCallServiceProcessor(new \App\ServerHandle());
+            $tFactory = new TTransportFactory();
+
+
+            $pFactory = new TBinaryProtocolFactory(true, true);
+
+            Log::info("服务启动成功", $config);
+
+            $server = new TSimpleServer($thriftProcessor, $transport, $tFactory, $tFactory, $pFactory, $pFactory);
+            $server->serve();
+
         } catch (\Exception $e) {
-            Log::error('调用服务出错', ['params' => $params, 'error' => $e->getMessage().'|'.$e->getFile().':'.$e->getLine()]);
+            Log::info("socket 连接异常: ".$e->getMessage());
         }
     }
-
-
-    /**
-     * 分发业务处理
-     * @param $service
-     * @param $method
-     * @param array $params
-     * @return array
-     */
-    private function routeService($service, $method, $params=[])
-    {
-        return [
-            'uid' => '123666',
-            'name' => 'Django',
-        ];
-    }
-
-    private function success($data = [])
-    {
-        $response = new Response();
-        $response->code = 200;
-        $response->msg = '测试server应答成功';
-        $response->data = json_encode($data);
-        return $response;
-    }
 }
+
+
+
+
+
+
